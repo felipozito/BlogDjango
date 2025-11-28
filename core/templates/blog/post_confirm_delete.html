@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Eliminar Post</h1>
+<hr>
+<p>¿Seguro que deseas eliminar el post: <strong>{{ post.title }}</strong>?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+    <a class="btn btn-secondary" href="{% url 'post_detail' post.pk %}">
+        Cancelar
+    </a>
+</form>
+{% endblock %}

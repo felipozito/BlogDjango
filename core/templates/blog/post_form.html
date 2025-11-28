@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>
+    {% if post %}
+        Editar Post
+    {% else %}
+        Nuevo Post
+    {% endif %}
+</h1>
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">
+        Guardar
+    </button>
+    <a class="btn btn-secondary" href="{% url 'home' %}">Cancelar</a>
+</form>
+{% endblock %}

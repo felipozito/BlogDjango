@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="mb-3">
+    <h1>{{ post.title }}</h1>
+    <small class="text-muted">
+        Por {{ post.author.username }} |
+        {{ post.created_at|date:"d/m/Y H:i" }}
+        {% if post.updated_at != post.created_at %}
+            (editado el {{ post.updated_at|date:"d/m/Y H:i" }})
+        {% endif %}
+    </small>
+
+    <div class="mt-3">
+        {{ post.content|linebreaks }}
+    </div>
+</article>
+
+{% if user == post.author %}
+    <a class="btn btn-warning" href="{% url 'post_update' post.pk %}">
+        Editar
+    </a>
+    <a class="btn btn-danger" href="{% url 'post_delete' post.pk %}">
+        Eliminar
+    </a>
+{% endif %}
+
+<a class="btn btn-secondary mt-3" href="{% url 'home' %}">Volver al inicio</a>
+{% endblock %}

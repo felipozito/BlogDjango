@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Últimos Posts</h1>
+<hr>
+
+{% if user.is_authenticated %}
+    <p>
+        <a class="btn btn-primary" href="{% url 'post_create' %}">
+            Crear nuevo post
+        </a>
+    </p>
+{% endif %}
+
+{% if posts %}
+    {% for post in posts %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h3>
+                    <a href="{% url 'post_detail' post.pk %}">
+                        {{ post.title }}
+                    </a>
+                </h3>
+                <small class="text-muted">
+                    Por {{ post.author.username }} |
+                    {{ post.created_at|date:"d/m/Y H:i" }}
+                </small>
+                <p class="mt-2">
+                    {{ post.content|truncatechars:150 }}
+                </p>
+                <a href="{% url 'post_detail' post.pk %}">Leer más</a>
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No hay posts todavía.</p>
+{% endif %}
+{% endblock %}
